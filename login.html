@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | Sree Narayana Vidhyalaya</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body class="login-page">
+
+    <div class="login-box">
+
+        <div class="school-icon">🏫</div>
+
+        <h1>Admin Login</h1>
+
+        <p>Sree Narayana Vidhyalaya</p>
+
+        <form id="loginForm">
+
+            <label for="email">
+                Admin Email
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter admin email"
+                required
+            >
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter password"
+                required
+            >
+
+            <button type="submit" id="loginBtn">
+                Login
+            </button>
+
+            <div id="loginMessage"></div>
+
+        </form>
+
+        <a href="../index.html" class="back-link">
+            ← Back to Website
+        </a>
+
+    </div>
+
+    <script src="admin.js"></script>
+
+</body>
+</html>

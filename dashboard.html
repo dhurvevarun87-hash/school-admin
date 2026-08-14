@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Dashboard | Sree Narayana Vidhyalaya</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <h1>Admin Dashboard</h1>
+
+                <p>Sree Narayana Vidhyalaya</p>
+
+            </div>
+
+            <button id="logoutBtn">
+                Logout
+            </button>
+
+        </header>
+
+
+        <main class="dashboard-content">
+
+            <div class="welcome-card">
+
+                <h2>Welcome, Admin 👋</h2>
+
+                <p>
+                    Manage your school's website
+                    from one place.
+                </p>
+
+            </div>
+
+
+            <div class="admin-grid">
+
+                <div class="admin-card">
+                    <span>📸</span>
+                    <h3>Gallery</h3>
+                    <p>Upload and manage school photos.</p>
+                    <button onclick="window.location.href='gallery.html'">
+                    Manage Gallery
+                    </button>
+                </div>
+
+
+                <div class="admin-card">
+                    <span>📢</span>
+                    <h3>Notices</h3>
+                    <p>Add and manage school notices.</p>
+                    <button>Manage Notices</button>
+                </div>
+
+
+                <div class="admin-card">
+                    <span>🎉</span>
+                    <h3>Events</h3>
+                    <p>Manage upcoming school events.</p>
+                    <button>Manage Events</button>
+                </div>
+
+
+                <div class="admin-card">
+                    <span>📩</span>
+                    <h3>Enquiries</h3>
+                    <p>View admission enquiries.</p>
+                    <button>View Enquiries</button>
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script>
+
+        const SUPABASE_URL =
+            "https://pnyzlbbdhbdunopsdzcx.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_2pmABySR4qtu8RYiPzb7UQ_nWm9-gKX";
+
+
+        const script =
+            document.createElement("script");
+
+        script.src =
+            "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+
+        script.onload = async () => {
+
+            const client =
+                window.supabase.createClient(
+                    SUPABASE_URL,
+                    SUPABASE_KEY
+                );
+
+
+            const {
+                data: {
+                    session
+                }
+            } =
+                await client.auth.getSession();
+
+
+            if (!session) {
+
+                window.location.href =
+                    "login.html";
+
+                return;
+
+            }
+
+
+            document
+                .getElementById("logoutBtn")
+                .addEventListener(
+                    "click",
+                    async () => {
+
+                        await client.auth.signOut();
+
+                        window.location.href =
+                            "login.html";
+
+                    }
+                );
+
+        };
+
+        document.head.appendChild(script);
+
+    </script>
+
+</body>
+
+</html>
