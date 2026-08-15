@@ -53,38 +53,86 @@
 
             <div class="admin-grid">
 
+
+                <!-- GALLERY -->
+
                 <div class="admin-card">
+
                     <span>📸</span>
+
                     <h3>Gallery</h3>
-                    <p>Upload and manage school photos.</p>
-                    <button onclick="window.location.href='gallery.html'">
-                    Manage Gallery
+
+                    <p>
+                        Upload and manage school photos.
+                    </p>
+
+                    <button
+                        onclick="window.location.href='gallery.html'"
+                    >
+                        Manage Gallery
                     </button>
+
                 </div>
 
 
+                <!-- NOTICES -->
+
                 <div class="admin-card">
+
                     <span>📢</span>
+
                     <h3>Notices</h3>
-                    <p>Add and manage school notices.</p>
-                    <button>Manage Notices</button>
+
+                    <p>
+                        Add and manage school notices.
+                    </p>
+
+                    <button>
+                        Manage Notices
+                    </button>
+
                 </div>
 
 
+                <!-- EVENTS -->
+
                 <div class="admin-card">
+
                     <span>🎉</span>
+
                     <h3>Events</h3>
-                    <p>Manage upcoming school events.</p>
-                    <button>Manage Events</button>
+
+                    <p>
+                        Manage upcoming school events.
+                    </p>
+
+                    <button>
+                        Manage Events
+                    </button>
+
                 </div>
 
+
+                <!-- ENQUIRIES -->
 
                 <div class="admin-card">
+
                     <span>📩</span>
+
                     <h3>Enquiries</h3>
-                    <p>View admission enquiries.</p>
-                    <button>View Enquiries</button>
+
+                    <p>
+                        View admission enquiries.
+                    </p>
+
+                    <button
+                        onclick="window.location.href='enquiries.html'"
+                    >
+                        View Enquiries
+                    </button>
+
                 </div>
+
 
             </div>
 
@@ -107,6 +155,7 @@
 
         script.src =
             "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+
 
         script.onload = async () => {
 
@@ -150,6 +199,7 @@
                 );
 
         };
+
 
         document.head.appendChild(script);
 
