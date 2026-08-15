@@ -1,0 +1,336 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #172033;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard {
+    min-height: 100vh;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.dashboard-header {
+    min-height: 80px;
+    padding: 18px 5%;
+    background: #0c3b78;
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.dashboard-header h1 {
+    font-size: 25px;
+    margin-bottom: 3px;
+}
+
+.dashboard-header p {
+    color: #cbdaf0;
+    font-size: 13px;
+}
+
+
+/* =========================
+   HEADER BUTTONS
+========================= */
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-actions button {
+    border: none;
+    border-radius: 8px;
+    padding: 11px 17px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.back-btn {
+    background: #ffffff;
+    color: #0c3b78;
+}
+
+#logoutBtn {
+    background: #dcae35;
+    color: #172033;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.dashboard-content {
+    width: min(1400px, 92%);
+    margin: auto;
+    padding: 45px 0;
+}
+
+
+/* =========================
+   PAGE HEADING
+========================= */
+
+.page-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.page-heading h2 {
+    color: #132746;
+    font-size: 34px;
+    margin-bottom: 7px;
+}
+
+.page-heading p {
+    color: #687588;
+    font-size: 15px;
+}
+
+
+/* =========================
+   COUNT
+========================= */
+
+.enquiry-count {
+    min-width: 150px;
+    padding: 18px 22px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.enquiry-count strong {
+    display: block;
+    color: #0c5db8;
+    font-size: 28px;
+}
+
+.enquiry-count span {
+    color: #687588;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading {
+    padding: 50px;
+    background: #fff;
+    border-radius: 14px;
+    text-align: center;
+    color: #687588;
+}
+
+
+/* =========================
+   NO DATA
+========================= */
+
+.no-data {
+    background: #fff;
+    padding: 70px 20px;
+    text-align: center;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+}
+
+.no-data span {
+    display: block;
+    font-size: 45px;
+    margin-bottom: 12px;
+}
+
+.no-data h3 {
+    color: #17365f;
+    margin-bottom: 7px;
+}
+
+.no-data p {
+    color: #687588;
+    font-size: 14px;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-container {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+
+    overflow-x: auto;
+
+    box-shadow: 0 8px 25px rgba(20, 45, 80, .06);
+}
+
+table {
+    width: 100%;
+    min-width: 1000px;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #f5f8fc;
+}
+
+th {
+    padding: 16px 14px;
+    text-align: left;
+
+    color: #17365f;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+
+    border-bottom: 1px solid #e2e8f0;
+}
+
+td {
+    padding: 16px 14px;
+
+    color: #526176;
+    font-size: 13px;
+
+    border-bottom: 1px solid #edf1f6;
+    vertical-align: top;
+}
+
+tbody tr:hover {
+    background: #f9fbfe;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================
+   STUDENT NAME
+========================= */
+
+td strong {
+    color: #17365f;
+}
+
+
+/* =========================
+   CLASS BADGE
+========================= */
+
+.class-badge {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    background: #edf5ff;
+    color: #0c5db8;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status-badge {
+    display: inline-block;
+
+    padding: 5px 11px;
+
+    background: #fff5d9;
+    color: #946d00;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message-cell {
+    max-width: 300px;
+    min-width: 220px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .dashboard-header {
+        padding: 16px 5%;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .header-actions {
+        width: 100%;
+    }
+
+    .header-actions button {
+        flex: 1;
+    }
+
+    .dashboard-content {
+        width: 92%;
+        padding: 30px 0;
+    }
+
+    .page-heading {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .page-heading h2 {
+        font-size: 28px;
+    }
+
+    .enquiry-count {
+        width: 100%;
+    }
+
+}

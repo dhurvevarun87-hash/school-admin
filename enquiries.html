@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Enquiries | Admin Dashboard</title>
+
+    <link rel="stylesheet" href="enquiries.css">
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- HEADER -->
+
+        <header class="dashboard-header">
+
+            <div>
+                <h1>Admission Enquiries</h1>
+
+                <p>
+                    Sree Narayana Vidhyalaya
+                </p>
+            </div>
+
+            <div class="header-actions">
+
+                <button
+                    onclick="window.location.href='admin.html'"
+                    class="back-btn"
+                >
+                    ← Dashboard
+                </button>
+
+                <button id="logoutBtn">
+                    Logout
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+
+        <main class="dashboard-content">
+
+            <div class="page-heading">
+
+                <div>
+                    <h2>Enquiries</h2>
+
+                    <p>
+                        View admission enquiries submitted
+                        through the school website.
+                    </p>
+                </div>
+
+                <div class="enquiry-count">
+                    <strong id="enquiryCount">0</strong>
+                    <span>Total Enquiries</span>
+                </div>
+
+            </div>
+
+
+            <!-- LOADING -->
+
+            <div
+                id="loading"
+                class="loading"
+            >
+                Loading enquiries...
+            </div>
+
+
+            <!-- NO DATA -->
+
+            <div
+                id="noData"
+                class="no-data"
+                style="display: none;"
+            >
+                <span>📩</span>
+
+                <h3>No enquiries yet</h3>
+
+                <p>
+                    New admission enquiries will appear here.
+                </p>
+            </div>
+
+
+            <!-- TABLE -->
+
+            <div
+                id="tableContainer"
+                class="table-container"
+                style="display: none;"
+            >
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Student Name</th>
+
+                            <th>Parent / Guardian</th>
+
+                            <th>Phone</th>
+
+                            <th>Class</th>
+
+                            <th>Message</th>
+
+                            <th>Status</th>
+
+                            <th>Date</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="enquiryTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <!-- SUPABASE -->
+
+    <script>
+
+        const SUPABASE_URL =
+            "https://pnyzlbbdhbdunopsdzcx.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_2pmABySR4qtu8RYiPzb7UQ_nWm9-gKX";
+
+
+        const script =
+            document.createElement("script");
+
+        script.src =
+            "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+
+
+        script.onload = async () => {
+
+            const client =
+                window.supabase.createClient(
+                    SUPABASE_URL,
+                    SUPABASE_KEY
+                );
+
+
+            /* CHECK LOGIN */
+
+            const {
+                data: {
+                    session
+                }
+            } =
+                await client.auth.getSession();
+
+
+            if (!session) {
+
+                window.location.href =
+                    "login.html";
+
+                return;
+
+            }
+
+
+            /* LOAD ENQUIRIES */
+
+            async function loadEnquiries() {
+
+                const loading =
+                    document.getElementById("loading");
+
+                const noData =
+                    document.getElementById("noData");
+
+                const tableContainer =
+                    document.getElementById("tableContainer");
+
+                const table =
+                    document.getElementById("enquiryTable");
+
+                const count =
+                    document.getElementById("enquiryCount");
+
+
+                const {
+                    data,
+                    error
+                } =
+                    await client
+                        .from("enquiries")
+                        .select("*")
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        );
+
+
+                loading.style.display = "none";
+
+
+                if (error) {
+
+                    console.error(error);
+
+                    noData.style.display = "block";
+
+                    noData.innerHTML = `
+                        <span>⚠️</span>
+                        <h3>Unable to load enquiries</h3>
+                        <p>Please check your Supabase RLS policies.</p>
+                    `;
+
+                    return;
+
+                }
+
+
+                count.textContent =
+                    data.length;
+
+
+                if (!data.length) {
+
+                    noData.style.display =
+                        "block";
+
+                    return;
+
+                }
+
+
+                tableContainer.style.display =
+                    "block";
+
+
+                table.innerHTML = "";
+
+
+                data.forEach(
+                    (enquiry, index) => {
+
+                        const row =
+                            document.createElement("tr");
+
+
+                        const date =
+                            enquiry.created_at
+                                ? new Date(
+                                    enquiry.created_at
+                                ).toLocaleString(
+                                    "en-IN",
+                                    {
+                                        day: "2-digit",
+                                        month: "short",
+                                        year: "numeric"
+                                    }
+                                )
+                                : "-";
+
+
+                        const status =
+                            enquiry.status ||
+                            "New";
+
+
+                        row.innerHTML = `
+
+                            <td>
+                                ${index + 1}
+                            </td>
+
+                            <td>
+                                <strong>
+                                    ${escapeHTML(
+                                        enquiry.student_name || "-"
+                                    )}
+                                </strong>
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    enquiry.parent_name || "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    enquiry.phone || "-"
+                                )}
+                            </td>
+
+                            <td>
+                                <span class="class-badge">
+                                    ${escapeHTML(
+                                        enquiry.class_applied || "-"
+                                    )}
+                                </span>
+                            </td>
+
+                            <td class="message-cell">
+                                ${escapeHTML(
+                                    enquiry.message || "-"
+                                )}
+                            </td>
+
+                            <td>
+                                <span class="status-badge">
+                                    ${escapeHTML(status)}
+                                </span>
+                            </td>
+
+                            <td>
+                                ${date}
+                            </td>
+
+                        `;
+
+
+                        table.appendChild(row);
+
+                    }
+                );
+
+            }
+
+
+            /* HTML SAFETY */
+
+            function escapeHTML(value) {
+
+                return String(value)
+                    .replace(
+                        /&/g,
+                        "&amp;"
+                    )
+                    .replace(
+                        /</g,
+                        "&lt;"
+                    )
+                    .replace(
+                        />/g,
+                        "&gt;"
+                    )
+                    .replace(
+                        /"/g,
+                        "&quot;"
+                    )
+                    .replace(
+                        /'/g,
+                        "&#039;"
+                    );
+
+            }
+
+
+            await loadEnquiries();
+
+
+            /* LOGOUT */
+
+            document
+                .getElementById("logoutBtn")
+                .addEventListener(
+                    "click",
+                    async () => {
+
+                        await client.auth.signOut();
+
+                        window.location.href =
+                            "login.html";
+
+                    }
+                );
+
+        };
+
+
+        document.head.appendChild(script);
+
+    </script>
+
+</body>
+
+</html>
